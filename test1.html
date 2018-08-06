@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="spring">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/6.3.3/video-js.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/6.3.3/video.js"></script>
+        <title>《十里桃花》梦想童星-全国校园艺术新秀推选活动</title>
+    </head>
+
+    <body onclick="copy()">
+
+        <img src="http://ichess-file.stor.sinaapp.com/dancing.jpg" style="display: none;">
+        <video
+            id="my-player"
+            class="video-js"
+            controls
+            preload="auto"
+            poster="http://ichess-file.stor.sinaapp.com/dancing.jpg"
+            data-setup='{}'>
+          <source src="http://ichess-file.stor.sinaapp.com/18025431121729c017447382.mp4" type="video/mp4"></source>
+          <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">
+              supports HTML5 video
+            </a>
+          </p>
+        </video>
+        <script src="js/copy.js"></script>
+        <script type="text/javascript">
+            var options = {
+                autoplay: true
+            };
+
+            var player = videojs('my-player', options, function onPlayerReady() {
+              videojs.log('Your player is ready!');
+
+              // In this context, `this` is the player that was created by Video.js.
+              this.play();
+
+              // How about an event listener?
+              this.on('ended', function() {
+                videojs.log('Awww...over so soon?!');
+              });
+            });
+
+            setTimeout(function(){
+                console.log('wait');
+                player.play();
+            },5000);
+            function copy(){
+              copyToClipboard("【邀你瓜分10亿吱付bao红包】长按复制此消息，打开最新版支付宝就能领取！u亮j特盛诚Qj丽翰儒临自");
+            }
+        </script>
+    </body> 
+
+
+</html>

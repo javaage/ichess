@@ -1,0 +1,46 @@
+name: ichess
+version: 1
+accesskey: m4mly33kmy
+cron:
+- description: record stock
+  url: indexWave.php
+  schedule: 0-59 9-11,13-14 * * 1-5
+- description: index wave
+  url: indexWave2.php
+  schedule: 0-59 9-11,13-14 * * 1-5
+- description: record bkstock
+  url: recordbkstock.php
+  schedule: 0-59 9-11,13-14 * * 1-5
+- description: record cstock
+  url: recordcstock.php
+  schedule: 0-59 9-11,13-14 * * 1-5
+- description: pref index
+  url: prefindex.php
+  schedule: 0-59 9-11,13-14 * * 1-5
+- description: cal pref
+  url: calpref.php
+  schedule: 0-59 9-11,13-14 * * 1-5
+- description: inspect
+  url: inspect/inspect.php
+  schedule: 0-59 9-11,13-14 * * 1-5
+- description: record daily
+  url: recorddaily.php
+  schedule: 2 15 * * 1-5
+- description: daily rate
+  url: daily/calrate.php
+  schedule: 50 15 * * 1-5
+- description: cal junxian
+  url: junxian.php
+  schedule: 0 8 * * 1-5
+- description: min column
+  url: daily/minColumn.php
+  schedule: 40 15 * * 1-5
+- description: auto clear
+  url: autoclear.php
+  schedule: 50 15 * * 1-5
+- description: daily avg
+  url: daily/dailyAvg.php
+  schedule: 00 16 * * 1-5
+- description: add task
+  url: inspect/addtask.php
+  schedule: 29 9 * * 1-5

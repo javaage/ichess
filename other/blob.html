@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		// var blob = new Blob(["hello"]);
+		// var i = 5;
+		// console.log(blob);
+		// var j = 1;
+
+		// var reader = new FileReader();
+		// reader.readAsText(blob, 'utf-8');
+		// reader.onload = function (e) {
+		//     console.info(reader.result);
+		// }
+
+		// MediaStream m = new MediaStream();
+		// var k = 1;
+
+		var blobs = [];
+
+		blobs['a'] = blobs['a'] || [];
+		blobs['a'].push('first');
+
+		blobs['b'] = blobs['b'] || [];
+		blobs['b'].push('second');
+
+		var i = 5;
+
+		for(var attr in blobs){
+			console.log(attr);
+			console.log(blobs[attr]);
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>

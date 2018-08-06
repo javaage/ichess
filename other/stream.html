@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		function hasGetUserMedia() {
+		  // Note: Opera builds are unprefixed.
+		  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+		            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+		}
+
+		if (hasGetUserMedia()) {
+		  alert('good!');
+		} else {
+		  alert('getUserMedia() is not supported in your browser');
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>
