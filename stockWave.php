@@ -73,8 +73,8 @@ function recordWave($code){
 	global $mysql, $kv, $ycode;
 	$gw = null;
 	$ct = date('Y-m-d');
-	$burl = "http://table.finance.yahoo.com/table.csv?s=$ycode";
-
+// 	$burl = "http://table.finance.yahoo.com/table.csv?s=$ycode";
+	$burl = "http://localhost:5000/daily/$ycode";
 	$baseUrl = "http://hq.sinajs.cn/list=";
 	
 	$sql = "SELECT code FROM waverecord WHERE code = '$code'";
@@ -88,22 +88,28 @@ function recordWave($code){
 	
 	$csv = array();
 	
-	$url = $baseUrl . $code;
-	$html = file_get_contents($url);
+// 	$url = $baseUrl . $code;
+// 	$html = file_get_contents($url);
 
-	$stock = str_replace("\"", "", $html);
-	$items = explode(',', $stock);
+// 	$stock = str_replace("\"", "", $html);
+// 	$items = explode(',', $stock);
 	
-	$ct = date('Y-m-d');
-	$csv[] = array($ct, $items[3]);
+// 	$ct = date('Y-m-d');
+// 	$csv[] = array($ct, $items[3]);
 	
 	$burl = str_replace($ycode, substr($code, 2) . "." . substr($code, 0, 2), $burl);
-	$burl = str_replace('sh', 'ss', $burl);
-
-	$file = fopen($burl, 'r');
-	while ($data = fgetcsv($file)) {
-		if (is_numeric($data[6]))
-			$csv[] = array($data[0], $data[6]);
+// 	$burl = str_replace('sh', 'ss', $burl);
+    
+// 	$burl = 'http://www.baidu.com';
+	
+	$ds = file_get_contents($burl);
+	
+	$ds = json_decode($ds);
+	
+	for($i=0; $i<count($ds->data);$i++){
+	    $data = $ds->data[$i];
+	    if (is_numeric($data[5]))
+	        $csv[] = array(substr($data[1], 0, 4) . '-' . substr($data[1], 4, 2) . '-' . substr($data[1], 6, 2) . ' ', $data[5]);
 	}
 	
 	for ($i = count($csv) - 1; $i > 0; $i--) {
@@ -152,4 +158,3 @@ function recordWave($code){
 		return true;
 	}
 }
-?>

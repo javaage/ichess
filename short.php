@@ -25,7 +25,7 @@ $sql = "SELECT s.code,a.name,s.buy as `signal`,a.current,a.rate,a.current/a.avg 
 
 $result = $mysql -> query($sql);
 $codes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$code = strtolower($mr['code']);
 	$gw = $kv -> get($code . 'gw');
 	$mr['arrow'] = getArrow($gw);

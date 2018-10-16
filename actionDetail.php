@@ -5,7 +5,7 @@ require 'common.php';
 $t = $_REQUEST['t'];
 
 if($t){
-	$sql = "SELECT id,time FROM `stockaction` where date_format(time,'%Y%m%d') = date_format((select max(time) from stockaction),'%Y%m%d') ORDER by time desc";
+	$sql = "SELECT time FROM `stockaction` where date_format(time,'%Y%m%d') = date_format((select max(time) from stockaction),'%Y%m%d') ORDER by time desc";
 
 	$result = $mysql->query ( $sql );
 	$times = array ();
@@ -24,14 +24,14 @@ if($t){
 $id = $_REQUEST['id'];
 
 if(empty($id)){
-	$sql = "SELECT pref1 FROM stockaction where id = (SELECT MAX(id) from stockaction)"; 
+	$sql = "SELECT pref1 FROM stockaction where time = (SELECT MAX(time) from stockaction)"; 
 }else{
 	$sql = "SELECT pref1 FROM stockaction where id >= $id order by id limit 1"; 
 }
 
 $result = $mysql -> query($sql);
 
-if ($mr = $result -> fetch_array()) {
+if ($result && $mr = $result -> fetch_array()) {
 	$list = $mr[0];
 }
 
@@ -39,7 +39,7 @@ $sql = "SELECT s.code,a.name,s.buy as `signal`,a.current,a.rate,a.current/a.avg 
 
 $result = $mysql -> query($sql);
 $codes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$code = strtolower($mr['code']);
 	$gw = $kv -> get($code . 'gw');
 	$mr['arrow'] = getArrow($gw);

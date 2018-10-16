@@ -16,7 +16,7 @@ class Direct {
 require 'header.php';
 $lm = date ( "Y-m-d H:i:s", strtotime ( "-5 minute" ) );
 
-$strQuery = "select action, ftime, ltime, time, type, content, detail, arrow from stockaction where time > '$lm'  order by id desc limit 1";
+$strQuery = "select action, ftime, ltime, time, type, content, detail, arrow from stockaction where time > '$lm'  order by time desc limit 1";
 
 $result = $mysql->query ( $strQuery );
 

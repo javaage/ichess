@@ -59,7 +59,7 @@ $sqlHolder = "select code from holder";
 
 $result = $mysql -> query($sqlHolder);
 $codes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$code = strtolower($mr['code']);
 	array_push($codes, $code);
 }
@@ -168,7 +168,7 @@ $sqlAttend = "select code from weak";
 
 $result = $mysql -> query($sqlAttend);
 $codes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$code = strtolower($mr['code']);
 	array_push($codes, $code);
 }
@@ -264,12 +264,12 @@ for ($i = 0; $i < count($stocks) - 1; $i++) {
 	}
 }
 
-$sqlInspect = "select id,code,name,type,opt,value from inspect where flag=0";
+$sqlInspect = "select id, code,name,type,opt,value from inspect where flag=0";
 
 $result = $mysql->query($sqlInspect);
 $actions = array();
 $codes = array();
-while ($mr = $result->fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result->fetch_array(MYSQLI_ASSOC)) {
 	$code = strtolower($mr['code']);
 	array_push($codes, $code);
 	$actions[$code] = $mr;

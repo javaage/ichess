@@ -7,7 +7,7 @@ $sql = "SELECT d.code,d.a,d.b,d.r,100 * (l.current-l.close)/l.close as rate,l.cu
 
 $result = $mysql -> query($sql);
 $codes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	array_push($codes, $mr);
 }
 echo json_encode($codes, JSON_UNESCAPED_UNICODE);

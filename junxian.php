@@ -19,7 +19,7 @@ $ct240 = date("Y-m-d",strtotime("-240 day"));
 	$sqlDate = "select min(d.date) as mindate,max(d.date) as maxdate from (select distinct date from daily order by date desc limit $days) d";	
 	$result = $mysql -> query($sqlDate);
 
-	if ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	if ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$mindate = $mr['mindate'];
 		$maxdate = $mr['maxdate'];
 		
@@ -27,7 +27,7 @@ $ct240 = date("Y-m-d",strtotime("-240 day"));
 
 		$result = $mysql -> query($sqlFilter);
 		$cands = array();
-		while($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+		while($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 			$cands[] = $mr['code'];
 		}
 
@@ -39,7 +39,7 @@ $ct240 = date("Y-m-d",strtotime("-240 day"));
 		$r = $mysql -> query($sqlavg);
 
 		$tings = array();
-		while ($m = $r -> fetch_array(MYSQLI_ASSOC)) {
+		while ($result && $m = $r -> fetch_array(MYSQLI_ASSOC)) {
 			array_push($tings,$m['code']);
 		}
 		
@@ -51,7 +51,7 @@ $ct240 = date("Y-m-d",strtotime("-240 day"));
 		$result = $mysql -> query($sql);
 		$list = array();
 		$codes = array();
-		while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+		while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 			$codes[] = "'" . $mr['code'] . "'";
 		}
 

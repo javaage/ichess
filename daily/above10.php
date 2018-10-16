@@ -31,7 +31,7 @@ $result = $mysql->query ( $sql );
 
 $data = array();
 
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$data[] =  substr($mr['code'], 2);
 
 	$sqlInsert = "INSERT INTO weak (code, name, time) values('" . $mr['code'] . "','" . $mr['name'] . "',now())";

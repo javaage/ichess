@@ -8,7 +8,7 @@ $result = $mysql -> query($sql);
 
 $codes = array();
 
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$codes[] = substr($mr['code'],2);
 }
 

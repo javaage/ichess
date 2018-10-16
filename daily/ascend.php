@@ -15,7 +15,7 @@ $list = array();
 
 $import = array();
 
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	array_push($list, $mr);
 	array_push($import, substr($mr['code'],2));
 }

@@ -19,7 +19,7 @@ $mysql -> query($sqlUpdate);
 $sql = "SELECT code FROM sign";
 $result = $mysql -> query($sql);
 $codes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$code = strtolower($mr['code']);
 	$codes[] = $code;
 }

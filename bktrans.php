@@ -11,7 +11,7 @@ else
 	
 $result = $mysql->query ( $sql );
 $codes = array ();
-while ( $mr = $result->fetch_array ( MYSQLI_ASSOC ) ) {
+while ( $result && $mr = $result->fetch_array ( MYSQLI_ASSOC ) ) {
 	array_push ( $codes, $mr );
 }
 echo json_encode ( $codes, JSON_UNESCAPED_UNICODE );

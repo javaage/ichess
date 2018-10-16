@@ -10,7 +10,7 @@ $result = $mysql->query ( $sql );
 
 $data = array();
 
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$data[] =  $mr;
 }
 print_r(count($data));

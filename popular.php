@@ -9,7 +9,7 @@ $sql = "select s.time,s.strong,s.dex from (SELECT id,substring(time,12,5) as tim
 
 $result = $mysql -> query($sql);
 $strongs = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$strongs[] = $mr;
 }
 echo json_encode($strongs);

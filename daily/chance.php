@@ -12,7 +12,7 @@ $sql50 = "SELECT pref FROM stockaction WHERE time > '2017-01-26 11:25:00'";
 $result = $mysql -> query($sql50);
 $chance = array();
 
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$pref = $mr['pref'];
 	$codes = explode(',',$pref);
 	foreach ($codes as $key => $value) {

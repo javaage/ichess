@@ -56,7 +56,7 @@ $result = $mysql -> query($sqlSearch);
 
 $inserts = array();
 $deletes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
     $code = $mr["code"];
     $dt = $mr["dt"];
     $inserts[] = "('$code','$dt')";

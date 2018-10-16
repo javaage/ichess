@@ -88,24 +88,31 @@ if ($mysql -> error != 0) {
 	die("Error:" . $mysql -> errmsg());
 }
 
-//insert new stock
+// $sqlAll = 'select preflist from candidate limit 1';
 
-$sqlAll = 'select preflist from candidate limit 1';
+// $result = $mysql -> query($sqlAll);
 
-$result = $mysql -> query($sqlAll);
+// if ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+// 	$preflist = $mr['preflist'];
 
-if ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
-	$preflist = $mr['preflist'];
+// 	$codeAll = explode(',', $preflist);
+// }
+$burl = 'http://localhost:5000/allstock';
 
-	$codeAll = explode(',', $preflist);
+$ds = file_get_contents($burl);
+
+$ds = json_decode($ds);
+
+for($i=0; $i<count($ds->data);$i++){
+    $data = $ds->data[$i];
+    $temp = strtolower($data[0]);
+    $codeAll[] = substr($temp, 7, 2) . substr($temp, 0, 6);
 }
-
-//print_r($codeAll);
 
 $sqlExist = 'select code from allstock';
 $result = $mysql -> query($sqlExist);	
 $codes = array();
-while($mr = $result -> fetch_array(MYSQLI_ASSOC)){
+while($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)){
 	$codes[] = $mr['code'];	
 }
 
@@ -131,7 +138,8 @@ foreach ($codeDiff as $key => $code) {
 	$code = strtoupper(substr($names[0], -8));
 
 	if(!empty($code) && strlen($name)>3){
-		$sqlInsert = "insert into allstock(code,name,py) values('$code','$name',getPY('$name'))";
+	    $code = strtolower($code);
+		$sqlInsert = "insert into allstock(code,name,py) values('$code','$name','')";
 		echo $sqlInsert . '<br>';
 
 		$mysql -> query($sqlInsert);

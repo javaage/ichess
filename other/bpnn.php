@@ -68,7 +68,7 @@ $sql = "select p.dex,p.clmn,p.strong,p.szclmn/1000,p.t from (select sh.rownum,sh
 $result = $mysql -> query($sql);
 $strongs = array();
 $temps = array();
-while ($mr = $result -> fetch_array(MYSQLI_NUM)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_NUM)) {
 	$temps[] = [ doubleval($mr[0]),doubleval($mr[1]),round(doubleval($mr[2]),2),doubleval($mr[3])];
 }
 

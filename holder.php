@@ -12,7 +12,7 @@ if($a=='d'){
 	$codes = explode(',',$c);
 	//$name = $_REQUEST['n'];
 	foreach ($codes as $key => $code) {
-		$sqlPrefer = "update candidate set preflist = concat(preflist, ','' , '$code') where locate( '$code',preflist) = 0";
+		$sqlPrefer = "update candidate set preflist = concat(preflist, ',' , '$code') where locate( '$code',preflist) = 0";
 		$mysql -> query($sqlPrefer);
 
 		$sql = "INSERT INTO holder (code, name, time) select code, name, now() from allstock where code = '$code'";
@@ -24,7 +24,7 @@ if($a=='d'){
 
 	$result = $mysql -> query($sql);
 	$codes = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		$gw = $kv->get($code . 'gw');
 		//echo json_encode($gw);

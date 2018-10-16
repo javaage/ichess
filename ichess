@@ -1,0 +1,21 @@
+server {
+	listen 80 ichess;
+	listen [::]:80 ichess;
+
+	root /home/spring/workspace/ichess;
+
+	server_name _;
+
+	location /ichess {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+	index index.html index.php index.htm;
+	location ~ \.php$ {
+	    fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+	    fastcgi_index index.php;
+	    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	    include fastcgi_params;
+	}
+}

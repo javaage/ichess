@@ -1,4 +1,4 @@
-<?
+<?php
 // 指定允许其他域名访问
 header('Access-Control-Allow-Origin:*');
 // 响应类型
@@ -6,23 +6,12 @@ header('Access-Control-Allow-Methods:POST');
 // 响应头设置
 header('Access-Control-Allow-Headers:x-requested-with,content-type');
 error_reporting(E_ERROR | E_PARSE);
-//date_default_timezone_set('PRC');
-$kv = new SaeKV();
-// 初始化KVClient对象
-$ret = $kv->init();
 
-$mysql = new mysqli ( 'puajivlwuajo.rds.sae.sina.com.cn', 'obird', 'Java19786028', 'zstock', '12648' );
-if ($mysql->connect_error) {
-	die ( $mysql->connect_error );
-}
-$mysql->set_charset ( "utf8" );
-
-$mysqlt = new mysqli ( 'hwgekjjdspqx.mysql.sae.sina.com.cn', 'obird', 'Java19786028', 'zstock', '12648' );
-if ($mysqlt->connect_error) {
-	die ( $mysqlt->connect_error );
-}
-$mysqlt->set_charset ( "utf8" );
-
+// $mysql = new mysqli ( 'puajivlwuajo.rds.sae.sina.com.cn', 'obird', 'Java19786028', 'zstock', '12648' );
+$mysql = new mysqli('localhost', 'root', '19786028', 'congshi');
+if (! $mysql)
+    die("connect error:" . mysqli_connect_error());
+$mysql->set_charset("utf8");
 
 $icode = 'sz399001';
 $ycode = '399001.sz';

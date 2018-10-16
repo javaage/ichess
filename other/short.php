@@ -24,7 +24,7 @@ function youkong() {
 	$result = $mysql -> query($sql);
 	$codes = array();
 	
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -47,7 +47,7 @@ where s.prefBuy > 0 order by s.current/s.prefBuy limit 30";
 	$result = $mysql -> query($sql);
 	$codes = array();
 	
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -66,7 +66,7 @@ function short() {
 
 	$result = $mysql -> query($sql);
 	$codes = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -89,7 +89,7 @@ where s.prefBuy > 0 and s.current > s.avg and s.avg > 0 order by s.current/s.pre
 	$result = $mysql -> query($sql);
 	$codes = array();
 	
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -108,7 +108,7 @@ function shortAnd() {
 
 	$result = $mysql -> query($sql);
 	$codes = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -128,7 +128,7 @@ function junxian() {
 	$result = $mysql -> query($sql);
 	$codes = array();
 	
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -171,7 +171,7 @@ function rate() {
 		
 		$result = $mysql -> query($sql);
 		$codes = array();
-		while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+		while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 			$code = $mr['code'];
 			if (substr($code, 0, 2) == 'sh') {
 				$code = '17:' . substr($code, 2, 6);
@@ -216,7 +216,7 @@ function trans() {
 
 		$result = $mysql -> query($sql);
 		$codes = array();
-		while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+		while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 			$code = $mr['code'];
 			if (substr($code, 0, 2) == 'sh') {
 				$code = '17:' . substr($code, 2, 6);
@@ -236,7 +236,7 @@ function qiangchou() {
 
 	$result = $mysql -> query($sql);
 	$codes = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -259,7 +259,7 @@ where s.prefBuy > 0 order by s.current/s.prefSell desc limit 30";
 	$result = $mysql -> query($sql);
 	$codes = array();
 	
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -278,7 +278,7 @@ function attend() {
 
 	$result = $mysql -> query($sql);
 	$codes = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);
@@ -297,7 +297,7 @@ function holder() {
 
 	$result = $mysql -> query($sql);
 	$codes = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		if (substr($code, 0, 2) == 'sh') {
 			$code = '17:' . substr($code, 2, 6);

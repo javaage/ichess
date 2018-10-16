@@ -16,7 +16,7 @@ if(empty($t)){
 	$sqlRate = 'select min(a.time) as time from (select distinct(time) as time from indexrecord order by time desc limit 240) a ';
 	$result = $mysql -> query($sqlRate);
 	
-	if ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	if ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$time = $mr['time'];
 	}
 
@@ -28,7 +28,7 @@ $sql = "select i.code,i.current*2/v.total as strong,i.time from indexrecord i in
 $result = $mysql -> query($sql);
 $strongs = array();
 $first = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	if($mr['code'] == 'sh000001')
 		$strong = (float)(100 * $mr['strong']);
 	else{

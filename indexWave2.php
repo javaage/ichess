@@ -69,7 +69,7 @@ if (time() > strtotime($as) && time() <= strtotime($ae)) {
 	exit(0);
 }
 
-$timeFragment = 25;
+$timeFragment = 20;
 $urlQueryIndex = "http://hq.sinajs.cn/list=sz399001,sh000001,sz399006,sz399005,sz399678,sz399959,sz399991,sz399232,sz399239,sz399240,sz399806,sz399803,sz399417,sz399441,sz399807,sz399814,sz399998,sz399997,sz399996,sz399995,sz399994,sz399989,sz399986,sz399975,sz399971,sz399970,sz399951,sz399941,sz399812,sz399809,sz399803,sh000016";
 //echo "begin";
 
@@ -93,7 +93,7 @@ for ($i = 0; $i < count($stocks) - 1; $i++) {
 	$code = substr($names[0], -8);
 
 	if ($shItems[30] == $ct) {
-		$sqlInsert[] = "('" . $code . "' , '" . $shItems[30] . "' , '" . $time . "' , '" . $names[1] . "' , '" . $shItems[2] . "' , '" . $shItems[1] . "' , '" . $shItems[3] . "' , '" . $shItems[4] . "' , '" . $shItems[5] . "' , '" . $shItems[8] . "' , '" . $shItems[9] . "' , '" . $shItems[9] / $shItems[8] . "' )";
+		$sqlInsert[] = "('" . $code . "' , '" . $shItems[30] . "' , " . $time . " , '" . $names[1] . "' , '" . $shItems[2] . "' , '" . $shItems[1] . "' , '" . $shItems[3] . "' , '" . $shItems[4] . "' , '" . $shItems[5] . "' , '" . $shItems[8] . "' , '" . $shItems[9] . "' , '" . $shItems[9] / $shItems[8] . "' )";
 	}
 }
 $sql = "INSERT INTO indexrecord (code, date, time, name, close, open, current, high, low, clmn, money, avg) VALUES  " . join(",", $sqlInsert);
@@ -103,7 +103,7 @@ $sql = "select r.dex,convert(r.strong,decimal(6,2)) as strong,r.time from (selec
 
 $result = $mysql -> query($sql);
 $strongs = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$strongs[] = $mr;
 }
 
@@ -227,7 +227,7 @@ if ($sWave -> asc) {
 	$kv -> set("g", $gw);
 
 	$mysql -> close();
-	$mysqlt -> close();
+	$mysql -> close();
 	function calrate($fTime, $lTime) {
 		global $ct, $kv, $mysql, $rt;
 		$sql = "select preflist from candidate order by id desc limit 1";
@@ -448,7 +448,7 @@ if ($sWave -> asc) {
 		$result = $mysql -> query($sql);
 		$names = array();
 		$codes = array();
-		while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+		while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 			$name = strtolower($mr['name']);
 			$code = strtolower($mr['code']);
 
@@ -488,7 +488,7 @@ if ($sWave -> asc) {
 	}
 
 	function alertrq($code){
-		global $mysqlt;
+		global $mysql;
 
 		$rate = 1.489;
 
@@ -497,9 +497,9 @@ if ($sWave -> asc) {
 			$rate = 1.489;
 		}else{
 			$sqlRate = 'select max(high) as high,min(low) as low,code from indexrecord where code="' . $code . '" or code="sh000001" group by code ';
-			$result = $mysqlt -> query($sqlRate);
+			$result = $mysql -> query($sqlRate);
 			$strongs = array();
-			while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+			while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 				if($mr['code'] == 'sh000001'){
 					$base = (float)$mr['high'] + (float)$mr['low'];
 				}else{
@@ -513,9 +513,9 @@ if ($sWave -> asc) {
 		//alert rq index
 		$sql = "select p.dex,p.clmn,p.strong,p.t from (select sh.rownum,sh.current as dex, sh.clmn as clmn, (sz.current -sh.current + (SELECT avg(current) from indexrecord where code='sh000001' order by id desc)) as strong,sz.time as t from (SELECT id, code,current * $rate as current,time FROM indexrecord WHERE code='$code') sz inner join (select i2.rownum,i1.code,i1.current,i1.time,(case when i2.clmn-i1.clmn > 0 then i2.clmn - i1.clmn else i2.clmn end) as clmn from (SELECT i.code,i.current,i.time,i.clmn,@rownum1:=@rownum1+1 as rownum FROM (select @rownum1:=0) a,indexrecord i WHERE code='sh000001' order by id desc) i1 inner join (SELECT i.code,i.current,i.time,i.clmn,@rownum2:=@rownum2+1 as rownum FROM (select @rownum2:=0) a,indexrecord i WHERE code='sh000001' order by id desc) i2 on i1.rownum = i2.rownum + 1) sh on sz.time = sh.time ORDER by t desc limit 2) p order by p.t ";
 
-		$result = $mysqlt -> query($sql);
+		$result = $mysql -> query($sql);
 		$strongs = array();
-		while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+		while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 			$mr['time'] = date('d H:i',$mr['t']);
 			$mr['dex'] = floatval($mr['dex']);
 			$mr['strong'] = floatval($mr['strong']);
@@ -575,7 +575,7 @@ function alertClmn(){
 
 	$result = $mysql -> query($sql);
 	$strongs = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$mr['clmn'] = floatval($mr['clmn']);
 		$strongs[] = $mr;
 	}
@@ -617,7 +617,7 @@ function checkMessage(){
 
 	$result = $mysql -> query($sql);
 		
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$obj = new stdClass();
 		$obj->title = $mr['code'] . ' ' . $mr['name'];
 		$obj->message = $mr['message'];

@@ -29,7 +29,7 @@ $strQuery = "SELECT close,current, high, low, clmn FROM `indexrecord` WHERE code
 
 $result = $mysql -> query($strQuery);
 $currentResult = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	array_push($currentResult, $mr);
 }
 $cnt = count($currentResult);
@@ -49,7 +49,7 @@ $strQuery = "SELECT close,high,low,clmn FROM `indexrecord` WHERE code = '" . $co
 
 $result = $mysql -> query($strQuery);
 $endResult = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	array_push($endResult, $mr);
 }
 $totalClmn = 0;

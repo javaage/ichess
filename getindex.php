@@ -31,7 +31,7 @@ $strQuery = "SELECT code,time*1000 as time,name,current,clmn,avg from stockrecor
 
 $result = $mysql->query($strQuery);
 
-while($mr = $result->fetch_array(MYSQLI_ASSOC)){
+while($result && $mr = $result->fetch_array(MYSQLI_ASSOC)){
 
 	$lst[$mr['code']][] = [(int)$mr['time'],(float)$mr['current']];
 	if($mr['code']!='sh000001'){

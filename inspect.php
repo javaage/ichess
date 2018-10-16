@@ -32,7 +32,7 @@ if($a=='d'){
 
 	$result = $mysql -> query($sql);
 	$codes = array();
-	while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+	while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 		$code = strtolower($mr['code']);
 		
 		array_push($codes, $mr);

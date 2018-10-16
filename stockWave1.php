@@ -33,10 +33,11 @@ flag
 */
 function recordWave($code){
 	global $ycode,$mysql;
-	$burl = "http://table.finance.yahoo.com/table.csv?s=$ycode";
+// 	$burl = "http://table.finance.yahoo.com/table.csv?s=$ycode";
+	$burl = "http://localhost:5000/daily/$ycode";
 	
 	$burl = str_replace($ycode, substr($code, 2) . "." . substr($code, 0, 2), $burl);
-	$burl = str_replace('sh', 'ss', $burl);
+// 	$burl = str_replace('sh', 'ss', $burl);
 
 	$file = fopen($burl, 'r');
 	$sqlSaves = array();

@@ -11,7 +11,7 @@ $sql = "select code from holder";
 
 $result = $mysql -> query($sql);
 $codes = array();
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$codes[] = strtolower($mr['code']);
 }
 
@@ -23,7 +23,7 @@ $sql = "select code,max(current) as large,min(current) as small from stockrecord
 
 $result = $mysql -> query($sql);
 $contents = [];
-while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 	$contents[] = $mr;
 }
 

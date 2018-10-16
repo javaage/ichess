@@ -12,7 +12,7 @@ require '../common.php';
 		$result = $mysql -> query($sql);
 		$names = array();
 		$codes = array();
-		while ($mr = $result -> fetch_array(MYSQLI_ASSOC)) {
+		while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
 			$name = strtolower($mr['name']);
 			$code = strtolower($mr['code']);
 
