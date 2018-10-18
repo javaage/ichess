@@ -979,3 +979,9 @@ function dayBefore($days, $flag)
     }
     return date("Y-m-d", strtotime("" . 1 - $i . " day"));
 }
+
+function exception_handler( Throwable $e){
+    error_log('catch Error:'.$e->getCode().':'.$e->getMessage().'<br/>', 0);
+}
+
+set_exception_handler('exception_handler');
