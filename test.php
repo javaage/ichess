@@ -2,17 +2,10 @@
 require 'header.php';
 require 'common.php';
 
-// $sql = "insert into test_table(name,age) values('inteval',20)";
-// $mysql -> query($sql);
-// $mysql -> close();
-// echo 'success';
+function exception_handler( Throwable $e){
+    echo 'catch Error:'.$e->getCode().':'.$e->getMessage().'<br/>';
+}
 
+set_exception_handler('exception_handler');
 
-
-$arr = array();
-$arr[] = "hello";
-$arr[] = "world";
-
-$kv->set('hello',$arr);
-
-echo $kv->get('hello');
+error();
