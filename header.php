@@ -8,7 +8,11 @@ header('Access-Control-Allow-Headers:x-requested-with,content-type');
 error_reporting(E_ERROR | E_PARSE);
 
 // $mysql = new mysqli ( 'puajivlwuajo.rds.sae.sina.com.cn', 'obird', 'Java19786028', 'zstock', '12648' );
-$mysql = new mysqli('localhost', 'root', '19786028', 'congshi');
+// $mysql = new mysqli('localhost', 'root', '19786028', 'congshi');
+//public internet
+$mysql = new mysqli('rm-bp149hof32gt0cewt7o.mysql.rds.aliyuncs.com', 'ichess', 'Java19786028', 'ichess');
+//private network
+//$mysql = new mysqli('rm-bp149hof32gt0cewt.mysql.rds.aliyuncs.com', 'ichess', 'Java19786028', 'ichess');
 if (! $mysql)
     die("connect error:" . mysqli_connect_error());
 $mysql->set_charset("utf8");
