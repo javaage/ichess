@@ -97,7 +97,7 @@ if ($mysql -> error != 0) {
 
 // 	$codeAll = explode(',', $preflist);
 // }
-$burl = 'http://localhost:5000/allstock';
+$burl = 'http://localhost:8001/allstock';
 
 $ds = file_get_contents($burl);
 

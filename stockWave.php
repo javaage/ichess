@@ -74,7 +74,7 @@ function recordWave($code){
 	$gw = null;
 	$ct = date('Y-m-d');
 // 	$burl = "http://table.finance.yahoo.com/table.csv?s=$ycode";
-	$burl = "http://localhost:5000/daily/$ycode";
+	$burl = "http://localhost:8001/daily/$ycode";
 	$baseUrl = "http://hq.sinajs.cn/list=";
 	
 	$sql = "SELECT code FROM waverecord WHERE code = '$code'";
