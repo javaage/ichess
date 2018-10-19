@@ -5,7 +5,7 @@ require 'common.php';
 $t = $_REQUEST['t'];
 
 if($t){
-	$sql = "SELECT time FROM `stockaction` where date_format(time,'%Y%m%d') = date_format((select max(time) from stockaction),'%Y%m%d') ORDER by time desc";
+	$sql = "SELECT id, time FROM `stockaction` where date_format(time,'%Y%m%d') = date_format((select max(time) from stockaction),'%Y%m%d') ORDER by time desc";
 
 	$result = $mysql->query ( $sql );
 	$times = array ();
