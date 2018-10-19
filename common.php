@@ -816,11 +816,9 @@ function updateMessage($code, $flag)
 function sendMail($title, $content)
 {
     $to = "11228856@qq.com";
-    $subject = $title;
-    $message = $content;
-    $from = 'hb_java@sina.com';
-    $headers = "From: $from";
-    mail($to,$subject,$message,$headers);
+    $headers = "From: hb_java@sina.com";
+    $result = mail($to,$title,$content,$headers);
+    $test = $result;
 }
 
 function arrStable($arr)

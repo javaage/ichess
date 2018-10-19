@@ -488,7 +488,7 @@ function dealWave(&$gw, $w)
     $day10 = dayBefore(10, 0);
 
     $sql = "select r.code,r.name from (select code,name,current from stockrecord where time = (select max(time) from stockrecord) and current < close) r inner join (select code, avg(current) as avg10 from daily where date > '$day10' group by code) d on r.code=d.code inner join (select code from daily where date = '$day1' and current < open) c on d.code=c.code where d.avg10 < r.current order by r.current/d.avg10";
-
+    error_log($sql);
     $result = $mysql->query($sql);
     $names = array();
     $codes = array();
