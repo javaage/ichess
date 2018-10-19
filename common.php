@@ -815,11 +815,12 @@ function updateMessage($code, $flag)
 
 function sendMail($title, $content)
 {
-    $mail = new SaeMail();
-    $ret = $mail->quickSend('11228856@qq.com', $title, $content, 'hb_java@sina.com', 'Tangyc_123');
-    // 发送失败时输出错误码和错误信息
-    if ($ret === false)
-        var_dump($mail->errno(), $mail->errmsg());
+    $to = "11228856@qq.com";
+    $subject = $title;
+    $message = $content;
+    $from = 'hb_java@sina.com';
+    $headers = "From: $from";
+    mail($to,$subject,$message,$headers);
 }
 
 function arrStable($arr)
