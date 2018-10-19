@@ -982,7 +982,9 @@ function dayBefore($days, $flag)
 }
 
 function exception_handler( Throwable $e){
-    error_log('catch Error:'.$e->getCode().':'.$e->getMessage().'<br/>', 0);
+    error_log($e->getFile() . ' ' . $e->getLine() . ' ' . 'catch Error:'.$e->getCode().':'.$e->getMessage().'<br/>', 0);
+    
+    error_log($e->getTraceAsString());
 }
 
 set_exception_handler('exception_handler');
