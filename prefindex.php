@@ -27,37 +27,37 @@ $todayCurrent = $items[8];
 
 $strQuery = "SELECT close,current, high, low, clmn FROM `indexrecord` WHERE code = '" . $code . "' and date < '" . $ct . "' and time - unix_timestamp(date) = $deltaTime ";
 
-$result = $mysql -> query($strQuery);
+$result = $mysql->query($strQuery);
 $currentResult = array();
-while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
-	array_push($currentResult, $mr);
+while ($result && $mr = $result->fetch_array(MYSQLI_ASSOC)) {
+    array_push($currentResult, $mr);
 }
 $cnt = count($currentResult);
 
 $totalClmn = 0;
-for ($i = 0; $i < $cnt; $i++) {
-	$totalClmn += $currentResult[$i]['clmn'];
+for ($i = 0; $i < $cnt; $i ++) {
+    $totalClmn += $currentResult[$i]['clmn'];
 }
 
 if ($cnt > 0) {
-	$clmnRate = $items[8] * $cnt / $totalClmn;
+    $clmnRate = $items[8] * $cnt / $totalClmn;
 } else {
-	$clmnRate = 1;
+    $clmnRate = 1;
 }
 
 $strQuery = "SELECT close,high,low,clmn FROM `indexrecord` WHERE code = '" . $code . "' and date < '" . $ct . "' and time - unix_timestamp(date)= 53760 ";
 
-$result = $mysql -> query($strQuery);
+$result = $mysql->query($strQuery);
 $endResult = array();
-while ($result && $mr = $result -> fetch_array(MYSQLI_ASSOC)) {
-	array_push($endResult, $mr);
+while ($result && $mr = $result->fetch_array(MYSQLI_ASSOC)) {
+    array_push($endResult, $mr);
 }
 $totalClmn = 0;
 $totalWidth = 0;
-for ($i = 0; $i < count($endResult); $i++) {
-	$totalClmn += $endResult[$i]['clmn'];
-	$totalWidth += ($endResult[$i]['high'] - $endResult[$i]['low']) / $endResult[$i]['close'];
-	$concept = $endResult[$i]['concept'];
+for ($i = 0; $i < count($endResult); $i ++) {
+    $totalClmn += $endResult[$i]['clmn'];
+    $totalWidth += ($endResult[$i]['high'] - $endResult[$i]['low']) / $endResult[$i]['close'];
+    $concept = $endResult[$i]['concept'];
 }
 
 $rateRange = $clmnRate * $totalWidth / count($endResult);
@@ -72,23 +72,23 @@ $prefBuy = $prefBuy > $bottom ? $prefBuy : $bottom;
 $prefSell = $prefSell < $top ? $prefSell : $top;
 $prefBuy = $prefBuy < $currentPrice ? $prefBuy : $currentPrice;
 $prefSell = $prefSell > $currentPrice ? $prefSell : $currentPrice;
-$mysql -> close();
+$mysql->close();
 
-
-if($prefBuy>=$currentPrice){
-	saveAction(3, "", "", $time, $time, 1, "推荐买入", "推荐买入", "", "");
-	echo "{\"prefBuy\":" . number_format($prefBuy, 2) . ",\"prefSell\":" . number_format($prefSell, 2) . ",\"current\":" . number_format($currentPrice, 2) . ",\"high\":" . number_format($high, 2) . ",\"low\":" . number_format($low, 2) . "}";
+if ($prefBuy >= $currentPrice) {
+    saveAction(3, "", "", $time, $time, 1, "推荐买入", "推荐买入", "", "");
+    echo "{\"prefBuy\":" . number_format($prefBuy, 2) . ",\"prefSell\":" . number_format($prefSell, 2) . ",\"current\":" . number_format($currentPrice, 2) . ",\"high\":" . number_format($high, 2) . ",\"low\":" . number_format($low, 2) . "}";
 }
-if($prefSell<=$currentPrice){
-	saveAction(1, "", "", $time, $time, 1, "推荐卖出", "推荐卖出", "", "");
-	echo "{\"prefBuy\":" . number_format($prefBuy, 2) . ",\"prefSell\":" . number_format($prefSell, 2) . ",\"current\":" . number_format($currentPrice, 2) . ",\"high\":" . number_format($high, 2) . ",\"low\":" . number_format($low, 2) . "}";
+if ($prefSell <= $currentPrice) {
+    saveAction(1, "", "", $time, $time, 1, "推荐卖出", "推荐卖出", "", "");
+    echo "{\"prefBuy\":" . number_format($prefBuy, 2) . ",\"prefSell\":" . number_format($prefSell, 2) . ",\"current\":" . number_format($currentPrice, 2) . ",\"high\":" . number_format($high, 2) . ",\"low\":" . number_format($low, 2) . "}";
 }
 
-function saveAction($action, $strWave, $strGw, $fTime, $lTime, $type, $content, $detail, $arrow, $pref) {
-	global $kv, $mysql, $rt;
+function saveAction($action, $strWave, $strGw, $fTime, $lTime, $type, $content, $detail, $arrow, $pref)
+{
+    global $kv, $mysql, $rt;
 
-	$strQuery = "INSERT INTO stockaction (action,time,ftime,ltime,queue,gw,type,content,detail,arrow,pref) VALUES(" . $action . ",'" . $rt . "'," . $fTime . "," . $lTime . ",'" . $strWave . "','$strGw'," . $type . ",'$content','$detail','$arrow','$pref')";
+    $strQuery = "INSERT INTO stockaction (action,time,ftime,ltime,queue,gw,type,content,detail,arrow,pref) VALUES(" . $action . ",'" . $rt . "'," . $fTime . "," . $lTime . ",'" . $strWave . "','$strGw'," . $type . ",'$content','$detail','$arrow','$pref')";
 
-	$mysql -> query($strQuery);
+    $mysql->query($strQuery);
 }
 ?>

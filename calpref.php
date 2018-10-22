@@ -30,10 +30,3 @@ foreach ($codes as $code) {
 
 	$mysql -> query($update);
 }
-
-$sqlClear = "DELETE FROM indexrecord WHERE id in (select id from (SELECT max(id) as id FROM `indexrecord` group by code, time HAVING count(time) > 1) s)";
-$mysql -> query($sqlClear);
-
-	
-
-?>

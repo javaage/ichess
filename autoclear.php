@@ -6,6 +6,10 @@ checkHoliday();
 
 $lm = date("Y-m-d", strtotime("-8 days"));
 $lm5 = date("Y-m-d", strtotime("-5 days"));
+
+$sqlClear = "DELETE FROM indexrecord WHERE id in (select id from (SELECT max(id) as id FROM `indexrecord` group by code, time HAVING count(time) > 1) s)";
+$mysql -> query($sqlClear);
+
 $strQuery = "DELETE FROM cand_rate where time < '$lm' LIMIT 80000";
 $mysql -> query($strQuery);
 if ($mysql -> error != 0) {
