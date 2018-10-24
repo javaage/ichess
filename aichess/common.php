@@ -712,7 +712,7 @@ function ting1()
     } else {
         $codes = $kv->get($label);
     }
-
+    error_log(json_encode($codes));
     return $codes;
 }
 
