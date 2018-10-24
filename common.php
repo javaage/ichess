@@ -454,10 +454,17 @@ function popular($fTime, $lTime, $asc)
     global $mysql, $kv;
     $strUpdate = "select (l.current - f.current)/l.close as main  from (SELECT code,name,close,current FROM `indexrecord` WHERE (time >= " . $fTime . " and time < " . ($fTime + 60) . ") and code = 'sh000001') f LEFT JOIN (SELECT code,name,close,current FROM indexrecord WHERE (time > " . ($lTime - 60) . " AND time <= " . $lTime . ") and code = 'sh000001') l ON f.code = l.code";
     $result = $mysql->query($strUpdate);
-    $main = $result->fetch_row();
+    $main = 0;
+    if($result){
+        $main = $result->fetch_row();
+    }
+    
     $strUpdate = "select (l.current - f.current)/l.close as main  from (SELECT code,name,close,current FROM `indexrecord` WHERE (time >= " . $fTime . " and time < " . ($fTime + 60) . ") and code = 'sz399006') f LEFT JOIN (SELECT code,name,close,current FROM indexrecord WHERE (time > " . ($lTime - 60) . " AND time <= " . $lTime . ") and code = 'sz399006') l ON f.code = l.code";
     $result = $mysql->query($strUpdate);
-    $concept = $result->fetch_row();
+    $concept = 0;
+    if($result){
+        $concept = $result->fetch_row();
+    }
     return 100 * ($concept[0] - $main[0]);
 }
 
