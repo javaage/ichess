@@ -40,22 +40,27 @@ class Pref
     var $concept = 0;
 }
 
-class KV{
+class KV
+{
+
     var $redis;
-    
-    function __construct(){
+
+    function __construct()
+    {
         $this->$redis = new Redis();
         $this->$redis->connect('127.0.0.1', 6379);
         if (! $this->$redis)
             die("redis connect error:");
     }
-    
-    function get($key){
-        return json_decode($this->$redis->get($key));
+
+    function get($key)
+    {
+        return json_decode($this->$redis->get($key),true);
     }
-    
-    function set($key, $value){
-        $this->$redis->set($key,json_encode($value));
+
+    function set($key, $value)
+    {
+        $this->$redis->set($key, json_encode($value));
     }
 }
 
@@ -432,10 +437,10 @@ function countArrow($gw)
     } else {
         $r = 0;
         while ($gw->level > 5) {
-            if($gw->asc){
-                $r++;
-            }else{
-                $r=0;
+            if ($gw->asc) {
+                $r ++;
+            } else {
+                $r = 0;
             }
             $cn = count($gw->childWave);
             $gw = $gw->childWave[$cn - 1];
@@ -761,8 +766,8 @@ function checkHoliday()
 
 function sendMessage($msg)
 {
-//     $channel = new SaeChannel();
-//     $ret = $channel->sendMessage('ichess', $msg);
+    // $channel = new SaeChannel();
+    // $ret = $channel->sendMessage('ichess', $msg);
 }
 
 function sendSms($msg)
@@ -811,7 +816,7 @@ function sendMail($title, $content)
 {
     $to = "11228856@qq.com";
     $headers = "From: hb_java@sina.com";
-    $result = mail($to,$title,$content,$headers);
+    $result = mail($to, $title, $content, $headers);
     $test = $result;
 }
 
@@ -973,9 +978,10 @@ function dayBefore($days, $flag)
     return date("Y-m-d", strtotime("" . 1 - $i . " day"));
 }
 
-function exception_handler( Throwable $e){
-    error_log($e->getFile() . ' ' . $e->getLine() . ' ' . 'catch Error:'.$e->getCode().':'.$e->getMessage().'<br/>', 0);
-    
+function exception_handler(Throwable $e)
+{
+    error_log($e->getFile() . ' ' . $e->getLine() . ' ' . 'catch Error:' . $e->getCode() . ':' . $e->getMessage() . '<br/>', 0);
+
     error_log($e->getTraceAsString());
 }
 
