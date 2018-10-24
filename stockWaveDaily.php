@@ -10,7 +10,6 @@ for($i=0; $i<count($ds->data);$i++){
     $data = $ds->data[$i];
     $temp = strtolower($data[0]);
     $code = substr($temp, 7, 2) . substr($temp, 0, 6);
-    
     recordWave($code);
 }
 
@@ -35,11 +34,10 @@ function recordWave($code){
     global $mysql, $kv, $ycode;
     $gw = null;
     $ct = date('Y-m-d');
-    // 	$burl = "http://table.finance.yahoo.com/table.csv?s=$ycode";
     $burl = "http://localhost:8001/daily/$ycode";
     $baseUrl = "http://hq.sinajs.cn/list=";
     
-    $sql = "SELECT code FROM waverecord WHERE code = '$code'";
+    $sql = "SELECT code FROM wavedaily WHERE code = '$code'";
     
     $result = $mysql -> query($sql);
     if($row = $result -> fetch_row()){
@@ -50,20 +48,8 @@ function recordWave($code){
     
     $csv = array();
     
-    // 	$url = $baseUrl . $code;
-    // 	$html = file_get_contents($url);
-    
-    // 	$stock = str_replace("\"", "", $html);
-    // 	$items = explode(',', $stock);
-    
-    // 	$ct = date('Y-m-d');
-    // 	$csv[] = array($ct, $items[3]);
-    
     $burl = str_replace($ycode, substr($code, 2) . "." . substr($code, 0, 2), $burl);
-    // 	$burl = str_replace('sh', 'ss', $burl);
-    
-    // 	$burl = 'http://www.baidu.com';
-    
+    echo $burl;
     $ds = file_get_contents($burl);
     
     $ds = json_decode($ds);
@@ -111,7 +97,7 @@ function recordWave($code){
         $nw->childWave[] = $child;
         $nw = $child;
     }
-    
+    echo $gw->level;
     if(empty($gw)){
         return false;
     }else{
