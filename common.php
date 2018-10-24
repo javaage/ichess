@@ -415,13 +415,8 @@ function getArrow($gw)
     if (empty($gw)) {
         return '';
     } else {
-        while ($gw->level > 9) {
-            $cn = count($gw->childWave);
-            $gw = $gw->childWave[$cn - 1];
-        }
-
         $r = '';
-        while ($gw->level > 3) {
+        while ($gw->level > 4) {
             $cn = count($gw->childWave);
             $r = $r . $cn . $gw->asc;
             $gw = $gw->childWave[$cn - 1];
@@ -435,14 +430,13 @@ function countArrow($gw)
     if (empty($gw)) {
         return 0;
     } else {
-        while ($gw->level > 9) {
-            $cn = count($gw->childWave);
-            $gw = $gw->childWave[$cn - 1];
-        }
-        // return json_encode($gw);
         $r = 0;
-        while ($gw->level > 3) {
-            $r += $gw->asc;
+        while ($gw->level > 5) {
+            if($gw->asc){
+                $r++;
+            }else{
+                $r=0;
+            }
             $cn = count($gw->childWave);
             $gw = $gw->childWave[$cn - 1];
         }

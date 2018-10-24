@@ -153,7 +153,9 @@ function recordWave($code){
 	if(empty($gw)){
 		return false;
 	}else{
-		$strQuery = "INSERT INTO waverecord (code,dt,wv,gw) VALUES('$code','" . $ct . "','','" . json_encode($gw) . "')";
+	    $arrow = getArrow($gw);
+	    $ac = countArrow($gw);
+	    $strQuery = "INSERT INTO waverecord (code,dt,wv,gw,arrow,ac) VALUES('$code','" . $ct . "','','" . json_encode($gw) . "','" . $arrow . "'," . $ac . ")";
 		$mysql -> query($strQuery);
 		return true;
 	}
