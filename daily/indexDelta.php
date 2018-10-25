@@ -6,6 +6,7 @@ $queryFormat = 'http://47.94.203.104:8001/indexDelta/%s';
 
 foreach ($indexList as $indexCode){
     $code = $indexCode[0];
+    echo $code;
     $queryUrl = sprintf($queryFormat,$code);
     $html = file_get_contents($queryUrl);
     $csv = json_decode($html);
