@@ -53,7 +53,7 @@ foreach ($indexList as $indexCode){
         return false;
     }else{
         $arrow = getArrow($gw);
-        $ac = countArrow($gw);
+        $ac = countIndexArrow($gw);
         $format="INSERT INTO wavedaily (code,dt,gw,arrow,ac) VALUES('%s','%s','%s','%s',%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d";
         $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$ac,formatDate($csv[0][0]),json_encode($gw),$arrow,$ac);
         $mysql -> query($strQuery);
@@ -76,7 +76,7 @@ function saveGlobal($g) {
     
 }
 
-function countArrow($gw)
+function countIndexArrow($gw)
 {
     if (empty($gw)) {
         return 0;
