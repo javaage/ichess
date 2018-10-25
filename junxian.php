@@ -74,15 +74,12 @@ $ct240 = date("Y-m-d",strtotime("-240 day"));
 
 		//$mysql -> query($sqlInsert);
 		
-		$queue = new SaeTaskQueue('daily');
-
-		//添加单个任务{
-		for($i=0;$i<10;$i++){
-			$queue->addTask("http://ichess.sinaapp.com/stockWave.php");
-		}
-		//将任务推入队列
-		$ret = $queue->push();
-		var_dump($ret);
+// 		$queue = new SaeTaskQueue('daily');
+// 		for($i=0;$i<10;$i++){
+// 			$queue->addTask("http://ichess.sinaapp.com/stockWave.php");
+// 		}
+// 		$ret = $queue->push();
+// 		var_dump($ret);
 
 	}
 

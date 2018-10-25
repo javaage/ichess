@@ -32,24 +32,22 @@ function saveGlobal($g) {
 
 function recordWave($code){
     global $mysql, $kv, $ycode;
+    $dt = '';
     $gw = null;
-    $ct = date('Y-m-d');
-    $burl = "http://localhost:8001/daily/$ycode";
     $baseUrl = "http://hq.sinajs.cn/list=";
     
-    $sql = "SELECT code FROM wavedaily WHERE code = '$code'";
-    
+    $sql = "SELECT dt,gw FROM wavedaily WHERE code = '$code'";    
     $result = $mysql -> query($sql);
     if($row = $result -> fetch_row()){
-        return false;
+        $dt = $row[0];
+        $gw = json_decode($row[1]);
     }else{
         echo $code;
     }
     
     $csv = array();
+    $burl = "http://localhost:8001/daily/" . substr($code, 2) . "." . substr($code, 0, 2) . "/" . $dt;
     
-    $burl = str_replace($ycode, substr($code, 2) . "." . substr($code, 0, 2), $burl);
-    echo $burl;
     $ds = file_get_contents($burl);
     
     $ds = json_decode($ds);
@@ -97,13 +95,15 @@ function recordWave($code){
         $nw->childWave[] = $child;
         $nw = $child;
     }
-    echo $gw->level;
-    if(empty($gw)){
+
+    if(empty($csv)){
         return false;
     }else{
         $arrow = getArrow($gw);
         $ac = countArrow($gw);
-        $strQuery = "INSERT INTO wavedaily (code,dt,gw,arrow,ac) VALUES('$code','" . $ct . "','" . json_encode($gw) . "','" . $arrow . "'," . $ac . ")";
+        $format="INSERT INTO wavedaily (code,dt,gw,arrow,ac) VALUES('%s','%s','%s','%s',%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d";
+        $strQuery = sprintf($format,$code,$csv[0][0],json_encode($gw),$arrow,$ac,$csv[0][0],json_encode($gw),$arrow,$ac);
+
         $mysql -> query($strQuery);
         return true;
     }
