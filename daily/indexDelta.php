@@ -55,9 +55,7 @@ foreach ($indexList as $indexCode){
         $ac = countArrow($gw);
         $format="INSERT INTO wavedaily (code,dt,gw,arrow,ac) VALUES('%s','%s','%s','%s',%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d";
         $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$ac,formatDate($csv[0][0]),json_encode($gw),$arrow,$ac);
-
         $mysql -> query($strQuery);
-        return true;
     }
 }
 function saveHistory(&$node) {
