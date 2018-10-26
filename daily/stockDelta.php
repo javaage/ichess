@@ -11,7 +11,6 @@ foreach ($stocks as $stock){
     $code = $stock[0];
     echo $code;
     recordWave($code);
-    break;
 }
 
 function saveHistory(&$node) {
