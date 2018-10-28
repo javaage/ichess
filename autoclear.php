@@ -143,7 +143,7 @@ foreach ($codeDiff as $key => $code) {
 
 	if(!empty($code) && strlen($name)>3){
 	    $code = strtolower($code);
-		$sqlInsert = "insert into allstock(code,name,py) values('$code','$name','')";
+		$sqlInsert = "insert into allstock(code,name,py) values('$code','$name',getPY('$name'))";
 		echo $sqlInsert . '<br>';
 
 		$mysql -> query($sqlInsert);

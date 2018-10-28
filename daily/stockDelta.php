@@ -30,22 +30,52 @@ function saveGlobal($g) {
     
 }
 
-function countStockArrow($gw)
+function countStockArrow($gw,$factor=0.382)
 {
+    $cw = json_decode(json_encode($gw));
+    $r = null;
+    $targetMin = null;
+    $targetMax = null;
+    $duration = null;
     if (empty($gw)) {
-        return 0;
+        return [null,null,null,null];
     } else {
         $r = 0;
         while ($gw->level > 5) {
+            $cn = count($gw->childWave);
             if ($gw->asc) {
                 $r ++;
             } else {
                 $r = 0;
+                if($cn>1){
+                    $targetMin = $factor * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
+                    $targetMax = $gw->childWave[$cn - 2]->high;
+                    $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
+                }
             }
-            $cn = count($gw->childWave);
             $gw = $gw->childWave[$cn - 1];
         }
-        return $r;
+        if($r>0){
+            return [$r,$targetMin,$targetMax,$duration];
+        }else{
+            $r = 0;
+            while ($cw->level > 5) {
+                $cn = count($cw->childWave);
+                if (!$cw->asc) {
+                    $r --;
+                } else {
+                    $r = 0;
+                    if($cn>1){
+                        $targetMax = (1-$factor) * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
+                        $targetMin = $gw->childWave[$cn - 2]->low;
+                        $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
+                    }
+                }
+                
+                $cw = $cw->childWave[$cn - 1];
+            }
+            return [$r,$targetMin,$targetMax,$duration];
+        }
     }
 }
 
@@ -98,10 +128,10 @@ function recordWave($code){
         return false;
     }else{
         $arrow = getArrow($gw);
-        $ac = countStockArrow($gw);
-        $format="INSERT INTO wavestock (code,dt,gw,arrow,ac) VALUES('%s','%s','%s','%s',%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d";
-        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$ac,formatDate($csv[0][0]),json_encode($gw),$arrow,$ac);
-        echo $strQuery;
+        $target = countStockArrow($gw);
+        $format="INSERT INTO wavestock (code,dt,gw,arrow,ac,min,max,duration) VALUES('%s','%s','%s','%s',%d,%f,%f,%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d";
+        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$target[3],formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$target[3]);
+
         $mysql -> query($strQuery);
     }
 }
