@@ -56,7 +56,7 @@ function countStockArrow($gw,$factor=0.382)
             $gw = $gw->childWave[$cn - 1];
         }
         if($r>0){
-            return [$r,$targetMin,$targetMax,$duration];
+            return [$r,$targetMin,$targetMax,$duration/24/60/60];
         }else{
             $r = 0;
             while ($cw->level > 5) {
@@ -74,7 +74,7 @@ function countStockArrow($gw,$factor=0.382)
                 
                 $cw = $cw->childWave[$cn - 1];
             }
-            return [$r,$targetMin,$targetMax,$duration];
+            return [$r,$targetMin,$targetMax,$duration/24/60/60];
         }
     }
 }
@@ -110,6 +110,8 @@ function recordWave($code){
         saveWave($gw, $w);
     }
     
+    $current = $csv[0][2];
+    
     $nw = $gw;
     while(count($nw->childWave)>0){
         $nw = $nw->childWave[count($nw->childWave)-1];
@@ -130,7 +132,7 @@ function recordWave($code){
         $arrow = getArrow($gw);
         $target = countStockArrow($gw);
         $format="INSERT INTO wavestock (code,dt,gw,arrow,ac,min,max,duration) VALUES('%s','%s','%s','%s',%d,%f,%f,%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d";
-        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$target[3],formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$target[3]);
+        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$target[3],formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$target[3]);
 
         $mysql -> query($strQuery);
     }
