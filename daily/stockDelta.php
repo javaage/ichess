@@ -36,9 +36,8 @@ function countStockArrow($gw,$factor=0.382)
     $r = null;
     $targetMin = null;
     $targetMax = null;
-    $duration = null;
     if (empty($gw)) {
-        return [null,null,null,null];
+        return [0,0,0];
     } else {
         $r = 0;
         while ($gw->level > 5) {
@@ -47,16 +46,18 @@ function countStockArrow($gw,$factor=0.382)
                 $r ++;
             } else {
                 $r = 0;
-                if($cn>1){
-                    $targetMin = $factor * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
-                    $targetMax = $gw->childWave[$cn - 2]->high;
-                    $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
-                }
+                $targetMin = $gw->low;
+                $targetMax = $gw->high;
+//                 if($cn>1){
+//                     $targetMin = $factor * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
+//                     $targetMax = $gw->childWave[$cn - 2]->high;
+//                     $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
+//                 }
             }
             $gw = $gw->childWave[$cn - 1];
         }
         if($r>0){
-            return [$r,$targetMin,$targetMax,$duration/24/60/60];
+            return [$r,$targetMin,$targetMax];
         }else{
             $r = 0;
             while ($cw->level > 5) {
@@ -65,16 +66,18 @@ function countStockArrow($gw,$factor=0.382)
                     $r --;
                 } else {
                     $r = 0;
-                    if($cn>1){
-                        $targetMax = (1-$factor) * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
-                        $targetMin = $gw->childWave[$cn - 2]->low;
-                        $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
-                    }
+                    $targetMin = $gw->low;
+                    $targetMax = $gw->high;
+//                     if($cn>1){
+//                         $targetMax = (1-$factor) * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
+//                         $targetMin = $gw->childWave[$cn - 2]->low;
+//                         $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
+//                     }
                 }
                 
                 $cw = $cw->childWave[$cn - 1];
             }
-            return [$r,$targetMin,$targetMax,$duration/24/60/60];
+            return [$r,$targetMin,$targetMax];
         }
     }
 }
@@ -131,9 +134,16 @@ function recordWave($code){
     }else{
         $arrow = getArrow($gw);
         $target = countStockArrow($gw);
+        
+        $pattern='/0(11)*2110$/';  /*因为/为特殊字符，需要转移*/
+        $arr=preg_split ($pattern, $arrow);
+        $reverse = 0;
+        if(count($arr)>0){
+            $reverse = (strlen($arrow) - strlen($arr[0]) - 1)/2;
+        }
+        
         $format="INSERT INTO wavestock (code,dt,gw,arrow,ac,min,max,duration) VALUES('%s','%s','%s','%s',%d,%f,%f,%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d";
-        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$target[3],formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$target[3]);
-
+        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$reverse,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$reverse);
         $mysql -> query($strQuery);
     }
 }
