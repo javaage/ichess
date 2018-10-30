@@ -48,11 +48,6 @@ function countStockArrow($gw,$factor=0.382)
                 $r = 0;
                 $targetMin = $gw->low;
                 $targetMax = $gw->high;
-//                 if($cn>1){
-//                     $targetMin = $factor * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
-//                     $targetMax = $gw->childWave[$cn - 2]->high;
-//                     $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
-//                 }
             }
             $gw = $gw->childWave[$cn - 1];
         }
@@ -66,13 +61,8 @@ function countStockArrow($gw,$factor=0.382)
                     $r --;
                 } else {
                     $r = 0;
-                    $targetMin = $gw->low;
-                    $targetMax = $gw->high;
-//                     if($cn>1){
-//                         $targetMax = (1-$factor) * ($gw->childWave[$cn - 2]->high - $gw->childWave[$cn - 2]->low) + $gw->childWave[$cn - 2]->low;
-//                         $targetMin = $gw->childWave[$cn - 2]->low;
-//                         $duration = ($gw->childWave[$cn - 2]->endTime - $gw->childWave[$cn - 2]-> beginTime) - ($gw->childWave[$cn - 1]->endTime - $gw->childWave[$cn - 1]-> beginTime);
-//                     }
+                    $targetMin = $cw->low;
+                    $targetMax = $cw->high;
                 }
                 
                 $cw = $cw->childWave[$cn - 1];
