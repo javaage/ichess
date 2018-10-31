@@ -127,11 +127,11 @@ function recordWave($code,$name){
         $arrow = getArrow($gw);
         $target = countStockArrow($gw);
         
-        $pattern='/0(11)*[2110,1111]$/';  
+        $pattern='/0(11)*\S1\S{2}$/';
         $arr=preg_split ($pattern, $arrow);
         $reverse = 0;
         if(count($arr)>0){
-            $reverse = (strlen($arrow) - strlen($arr[0]) - 1)/2;
+            $reverse = floor((strlen($arrow) - strlen($arr[0]))/2);
         }
         
         $format="INSERT INTO wavestock (code,name,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";

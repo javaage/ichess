@@ -8,7 +8,6 @@ foreach ($indexList as $indexCode){
     $name = $indexCode[1];
     echo $code;
     recordWave($code,$name);
-    break;
 }
 
 function saveHistory(&$node) {
