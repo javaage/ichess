@@ -31,7 +31,7 @@ function saveGlobal($g) {
     
 }
 
-function countStockArrow($gw,$factor=0.382)
+function countStockArrow($gw)
 {
     $cw = json_decode(json_encode($gw));
     $r = null;
