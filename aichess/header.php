@@ -10,7 +10,8 @@ error_reporting(E_ERROR | E_PARSE);
 // $mysql = new mysqli ( 'puajivlwuajo.rds.sae.sina.com.cn', 'obird', 'Java19786028', 'zstock', '12648' );
 // $mysql = new mysqli('localhost', 'root', '19786028', 'congshi');
 //public internet
-$mysql = new mysqli('rm-bp149hof32gt0cewt7o.mysql.rds.aliyuncs.com', 'ichess', 'Java19786028', 'aichess');
+// $mysql = new mysqli('rm-bp149hof32gt0cewt7o.mysql.rds.aliyuncs.com', 'ichess', 'Java19786028', 'aichess');
+$mysql = new mysqli('192.168.1.10', 'ichess', 'Java19786028', 'aichess');
 //private network
 // $mysql = new mysqli('rm-bp149hof32gt0cewt.mysql.rds.aliyuncs.com', 'ichess', 'Java19786028', 'ichess');
 if (! $mysql)

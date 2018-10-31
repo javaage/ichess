@@ -6,6 +6,7 @@ $queryUrl = 'http://47.94.203.104:8001/allstock';
 $html = file_get_contents($queryUrl);
 $result = json_decode($html);
 $stocks = $result->data;
+$time = time();
 
 foreach ($stocks as $stock){
     $code = $stock[0];
@@ -73,7 +74,7 @@ function countStockArrow($gw,$factor=0.382)
 }
 
 function recordWave($code){
-    global $mysql, $kv;
+    global $mysql, $kv, $time;
     
     $queryFormat = 'http://47.94.203.104:8001/stockDelta/%s';
     $queryUrl = sprintf($queryFormat,$code);
@@ -125,15 +126,15 @@ function recordWave($code){
         $arrow = getArrow($gw);
         $target = countStockArrow($gw);
         
-        $pattern='/0(11)*2110$/';  /*因为/为特殊字符，需要转移*/
+        $pattern='/0(11)*[2110,1111]$/';  
         $arr=preg_split ($pattern, $arrow);
         $reverse = 0;
         if(count($arr)>0){
             $reverse = (strlen($arrow) - strlen($arr[0]) - 1)/2;
         }
         
-        $format="INSERT INTO wavestock (code,dt,gw,arrow,ac,min,max,duration) VALUES('%s','%s','%s','%s',%d,%f,%f,%d) ON DUPLICATE KEY UPDATE dt='%s',gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d";
-        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$reverse,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1]/$current-1,$target[2]/$current-1,$reverse);
+        $format="INSERT INTO wavestock (code,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";
+        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time,json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time);
         $mysql -> query($strQuery);
     }
 }
