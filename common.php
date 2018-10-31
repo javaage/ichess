@@ -433,6 +433,11 @@ function getArrow($gw)
         $r = '';
         while ($gw->level > 4) {
             $cn = count($gw->childWave);
+            while($cn>15){
+                $cn = $cn - 2;
+            }
+            $cn = substr(dechex($cn),0,1);
+
             $r = $r . $cn . $gw->asc;
             $gw = $gw->childWave[$cn - 1];
         }

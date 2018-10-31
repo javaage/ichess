@@ -415,14 +415,14 @@ function getArrow($gw)
     if (empty($gw)) {
         return '';
     } else {
-//         while ($gw->level > 9) {
-//             $cn = count($gw->childWave);
-//             $gw = $gw->childWave[$cn - 1];
-//         }
 
         $r = '';
         while ($gw->level > 3) {
             $cn = count($gw->childWave);
+            while($cn>15){
+                $cn = $cn - 2;
+            }
+            $cn = substr(dechex($cn),0,1);
             $r = $r . $cn . $gw->asc;
             $gw = $gw->childWave[$cn - 1];
         }
