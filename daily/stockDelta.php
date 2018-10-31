@@ -134,7 +134,7 @@ function recordWave($code,$name){
             $reverse = (strlen($arrow) - strlen($arr[0]) - 1)/2;
         }
         
-        $format="INSERT INTO wavestock (code,name,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";
+        $format="INSERT INTO wavestock (code,name,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";
         $strQuery = sprintf($format,$code,$name,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time,json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time);
         $mysql -> query($strQuery);
     }

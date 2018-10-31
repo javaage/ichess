@@ -8,6 +8,7 @@ foreach ($indexList as $indexCode){
     $name = $indexCode[1];
     echo $code;
     recordWave($code,$name);
+    break;
 }
 
 function saveHistory(&$node) {
@@ -122,14 +123,14 @@ function recordWave($code,$name){
         $arrow = getArrow($gw);
         $target = countStockArrow($gw);
         
-        $pattern='/0(11)*[2110,1111]$/';
+        $pattern='/0(11)*\S1\S{2}$/';
         $arr=preg_split ($pattern, $arrow);
         $reverse = 0;
         if(count($arr)>0){
-            $reverse = (strlen($arrow) - strlen($arr[0]) - 1)/2;
+            $reverse = floor((strlen($arrow) - strlen($arr[0]))/2);
         }
         
-        $format="INSERT INTO waveindex (code,name,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";
+        $format="INSERT INTO waveindex (code,name,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";
         $strQuery = sprintf($format,$code,$name,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time,json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time);
         $mysql -> query($strQuery);
     }
