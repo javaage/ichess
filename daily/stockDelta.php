@@ -10,8 +10,9 @@ $time = time();
 
 foreach ($stocks as $stock){
     $code = $stock[0];
+    $name = $stock[1];
     echo $code;
-    recordWave($code);
+    recordWave($code,$name);
 }
 
 function saveHistory(&$node) {
@@ -73,7 +74,7 @@ function countStockArrow($gw)
     }
 }
 
-function recordWave($code){
+function recordWave($code,$name){
     global $mysql, $kv, $time;
     
     $queryFormat = 'http://47.94.203.104:8001/stockDelta/%s';
@@ -133,8 +134,8 @@ function recordWave($code){
             $reverse = (strlen($arrow) - strlen($arr[0]) - 1)/2;
         }
         
-        $format="INSERT INTO wavestock (code,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";
-        $strQuery = sprintf($format,$code,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time,json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time);
+        $format="INSERT INTO wavestock (code,name,dt,gw,arrow,ac,min,max,duration,time) VALUES('%s','%s','%s','%s',%d,%f,%f,%d,%d) ON DUPLICATE KEY UPDATE gw='%s',arrow='%s',ac=%d,min=%f,max=%f,duration=%d,time=%d";
+        $strQuery = sprintf($format,$code,$name,formatDate($csv[0][0]),json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time,json_encode($gw),$arrow,$target[0],$target[1],$target[2],$reverse,$time);
         $mysql -> query($strQuery);
     }
 }
