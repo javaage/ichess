@@ -11,6 +11,8 @@ error_reporting(E_ERROR | E_PARSE);
 // $mysql = new mysqli('localhost', 'root', '19786028', 'congshi');
 //public internet
 $mysql = new mysqli('rm-bp149hof32gt0cewt7o.mysql.rds.aliyuncs.com', 'ichess', 'Java19786028', 'ichess');
+
+// python -m pwiz -e mysql -H rm-bp149hof32gt0cewt7o.mysql.rds.aliyuncs.com -p 3306 -u root -P Java19786028 ichess >ichess.py
 //private network
 // $mysql = new mysqli('rm-bp149hof32gt0cewt.mysql.rds.aliyuncs.com', 'ichess', 'Java19786028', 'ichess');
 if (! $mysql)
