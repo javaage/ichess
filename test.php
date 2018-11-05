@@ -2,8 +2,40 @@
 require 'header.php';
 require 'common.php';
 
-$str='{"id":"5bd8fc65d703b","pid":"5bd8fc65d21a1","level":15,"asc":1,"high":3759.63,"low":-6023.45,"beginTime":1309762800,"endTime":1433142000,"count":0,"childWave":[{"id":"5bd8fc65d597a","pid":"5bd8fc65d703b","level":14,"asc":1,"high":3759.63,"low":-6023.45,"beginTime":1309762800,"endTime":1433142000,"count":1,"childWave":[]},{"id":"5bd8fc65d7030","pid":"5bd8fc65d703b","level":14,"asc":0,"high":3759.63,"low":-1537.74,"beginTime":1433142000,"endTime":1476428400,"count":0,"childWave":[{"id":"5bd8fc65d5972","pid":"5bd8fc65d7030","level":13,"asc":0,"high":3759.63,"low":-1537.74,"beginTime":1433142000,"endTime":1448434800,"count":1,"childWave":[]},{"id":"5bd8fc65d702e","pid":"5bd8fc65d7030","level":13,"asc":1,"high":2513.58,"low":-1537.74,"beginTime":1441177200,"endTime":1476428400,"count":0,"childWave":[{"id":"5bd8fc65d5970","pid":"5bd8fc65d702e","level":12,"asc":1,"high":2513.58,"low":-1537.74,"beginTime":1441177200,"endTime":1476428400,"count":3,"childWave":[]},{"id":"5bd8fc65d702b","pid":"5bd8fc65d702e","level":12,"asc":0,"high":2513.58,"low":-1105.07,"beginTime":1476428400,"endTime":1523602800,"count":0,"childWave":[{"id":"5bd8fc65d6542","pid":"5bd8fc65d702b","level":11,"asc":0,"high":2513.58,"low":-1105.07,"beginTime":1476428400,"endTime":1519282800,"count":3,"childWave":[]},{"id":"5bd8fc65d7029","pid":"5bd8fc65d702b","level":11,"asc":1,"high":6.21,"low":-1105.07,"beginTime":1519282800,"endTime":1530601200,"count":0,"childWave":[{"id":"5bd8fc65d7002","pid":"5bd8fc65d7029","level":10,"asc":1,"high":-18.33,"low":-1105.07,"beginTime":1519282800,"endTime":1523602800,"count":1,"childWave":[]},{"id":"5bd8fc65d7026","pid":"5bd8fc65d7029","level":10,"asc":0,"high":-18.33,"low":-545.56,"beginTime":1523602800,"endTime":1529564400,"count":5,"childWave":[]},{"id":"5bd8fc65d722c","pid":"5bd8fc65d7029","level":10,"asc":1,"high":6.21,"low":-545.56,"beginTime":1529564400,"endTime":1530601200,"count":1,"childWave":[]},{"id":"5bd8fc65d7454","pid":"5bd8fc65d7029","level":10,"asc":0,"high":6.21,"low":-666.56,"beginTime":1530601200,"endTime":1538031600,"count":0,"childWave":[{"id":"5bd8fc65d736b","pid":"5bd8fc65d7454","level":9,"asc":0,"high":6.21,"low":-487.74,"beginTime":1530601200,"endTime":1532415600,"count":1,"childWave":[]},{"id":"5bd8fc65d7450","pid":"5bd8fc65d7454","level":9,"asc":1,"high":-151.39,"low":-487.74,"beginTime":1531983600,"endTime":1533625200,"count":1,"childWave":[]},{"id":"5bd8fc65d7497","pid":"5bd8fc65d7454","level":9,"asc":0,"high":-151.39,"low":-666.56,"beginTime":1533625200,"endTime":1538031600,"count":0,"childWave":[{"id":"5bd8fc65d744c","pid":"5bd8fc65d7497","level":8,"asc":0,"high":-151.39,"low":-666.56,"beginTime":1533625200,"endTime":1538031600,"count":0,"childWave":[{"id":"5bd8fc65d73de","pid":"5bd8fc65d744c","level":7,"asc":0,"high":-151.39,"low":-466.31,"beginTime":1533625200,"endTime":1534748400,"count":1,"childWave":[]},{"id":"5bd8fc65d7449","pid":"5bd8fc65d744c","level":7,"asc":1,"high":-406.8,"low":-466.31,"beginTime":1534748400,"endTime":1534834800,"count":1,"childWave":[]},{"id":"5bd8fc65d7478","pid":"5bd8fc65d744c","level":7,"asc":0,"high":-406.8,"low":-646.96,"beginTime":1534834800,"endTime":1535958000,"count":1,"childWave":[]},{"id":"5bd8fc65d7540","pid":"5bd8fc65d744c","level":7,"asc":1,"high":-428.74,"low":-646.96,"beginTime":1535958000,"endTime":1536822000,"count":1,"childWave":[]},{"id":"5bd8fc65d7589","pid":"5bd8fc65d744c","level":7,"asc":0,"high":-428.74,"low":-666.56,"beginTime":1536822000,"endTime":1538031600,"count":1,"childWave":[]},{"id":"5bd8fc65d75fe","pid":"5bd8fc65d744c","level":7,"asc":1,"high":-167.12,"low":-666.56,"beginTime":1538031600,"endTime":1540882800,"count":0,"childWave":[{"id":"5bd8fc65d75b4","pid":"5bd8fc65d75fe","level":6,"asc":1,"high":-167.12,"low":-666.56,"beginTime":1538031600,"endTime":1540882800,"count":0,"childWave":[{"id":"5bd8fc65d7593","pid":"5bd8fc65d75b4","level":5,"asc":1,"high":-533.88,"low":-666.56,"beginTime":1538031600,"endTime":1538982000,"count":0,"childWave":[]},{"id":"5bd8fc65d75a3","pid":"5bd8fc65d75b4","level":5,"asc":0,"high":-533.88,"low":-554.38,"beginTime":1538982000,"endTime":1539068400,"count":0,"childWave":[]},{"id":"5bd8fc65d75b7","pid":"5bd8fc65d75b4","level":5,"asc":1,"high":-448.64,"low":-554.38,"beginTime":1539068400,"endTime":1539241200,"count":0,"childWave":[]},{"id":"5bd8fc65d75c8","pid":"5bd8fc65d75b4","level":5,"asc":0,"high":-448.64,"low":-468.71,"beginTime":1539241200,"endTime":1539327600,"count":0,"childWave":[]},{"id":"5bd8fc65d75d7","pid":"5bd8fc65d75b4","level":5,"asc":1,"high":-395.6,"low":-468.71,"beginTime":1539327600,"endTime":1539586800,"count":0,"childWave":[]},{"id":"5bd8fc65d7601","pid":"5bd8fc65d75b4","level":5,"asc":0,"high":-395.6,"low":-443.66,"beginTime":1539586800,"endTime":1539673200,"count":0,"childWave":[]},{"id":"5bd8fc65d7611","pid":"5bd8fc65d75b4","level":5,"asc":1,"high":-349.72,"low":-443.66,"beginTime":1539673200,"endTime":1539932400,"count":0,"childWave":[]},{"id":"5bd8fc65d7626","pid":"5bd8fc65d75b4","level":5,"asc":0,"high":-349.72,"low":-431.39,"beginTime":1539932400,"endTime":1540191600,"count":0,"childWave":[]},{"id":"5bd8fc65d7636","pid":"5bd8fc65d75b4","level":5,"asc":1,"high":-327.44,"low":-431.39,"beginTime":1540191600,"endTime":1540364400,"count":0,"childWave":[]},{"id":"5bd8fc65d764b","pid":"5bd8fc65d75b4","level":5,"asc":0,"high":-327.44,"low":-397.15,"beginTime":1540364400,"endTime":1540537200,"count":0,"childWave":[]},{"id":"5bd8fc65d765b","pid":"5bd8fc65d75b4","level":5,"asc":1,"high":-167.12,"low":-397.15,"beginTime":1540537200,"endTime":1540882800,"count":0,"childWave":[{"id":"5bd8fc65d7679","pid":"5bd8fc65d765b","level":4,"asc":1,"high":-167.12,"low":-397.15,"beginTime":1540537200,"endTime":1540882800,"count":0,"childWave":[{"id":"5bd8fc65d767d","pid":"5bd8fc65d7679","level":3,"asc":1,"high":-167.12,"low":-397.15,"beginTime":1540537200,"endTime":1540882800,"count":0,"childWave":[{"id":"5bd8fc65d7681","pid":"5bd8fc65d767d","level":2,"asc":1,"high":-167.12,"low":-397.15,"beginTime":1540537200,"endTime":1540882800,"count":0,"childWave":[]}]}]}]}]}]}]}]}]}]}]}]}]}]}';
-$gw = json_decode($str);
-$arrow = getArrow($gw);
+class Stock
+{
+    var $code = "";
+    var $name = "";
+}
 
-echo $arrow;
+$arr = array();
+
+foreach ($indexList as $indexCode){
+    $code1T = $indexCode[0];
+    $name1 = $indexCode[1];
+    $code1 = strtolower($code1T);
+    $code1 = substr($code1,7,9) . substr($code1,0,6);
+    
+    $urlQueryIndex = "http://hq.sinajs.cn/list=$code1";
+    
+    $time = strtotime(date('Y-m-d H:i'));
+    $rt = date('Y-m-d H:i:s');
+    $html = file_get_contents($urlQueryIndex);
+    $html = str_replace("\"", "", $html);
+    $stocks = explode(';', $html);
+    $action = - 1;
+    
+    $stock = new Stock();
+    for ($i = 0; $i < count($stocks) - 1; $i ++) {
+        $shItems = explode(',', $stocks[$i]);
+        
+        if(count($shItems)>=30){
+            $stock->code = $code1T;
+            $stock->name = $name1;
+            $arr[] = $stock;
+        }
+    }
+}
+
+echo json_encode($arr);
+// echo join(',',$arr);
